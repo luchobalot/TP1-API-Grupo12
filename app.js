@@ -16,6 +16,11 @@ app.get('/', (req, res) => {
 const moviesRoutes = require('./routes/api/v1/movies');
 app.use('/api/v1', moviesRoutes);
 
+// Middleware por si el usuario ingresa una ruta que no existe. -- Agregar para el commit
+app.use((req, res) => {
+  res.status(404).json({ status: 'error', msg: 'No se encontro ninguna ruta!' });
+});
+
 app.listen(port, () => {
   console.log(`Servidor escuchando en el puerto ${port}`);
 });

@@ -1,6 +1,18 @@
 const axios = require('axios');
 
-// Controlador para listar películas
+// Función para filtrar solo los campos importantes de una película
+const filterDetails = (movie) => {
+  return {
+    title: movie.title || 'Título no disponible',
+    description: movie.overview || 'Descripción no disponible',
+    release_date: movie.release_date || 'Fecha no disponible', 
+    genres: movie.genres ? movie.genres.map(genre => genre.name) : ['Géneros no disponibles'], 
+    vote_average: movie.vote_average !== undefined ? movie.vote_average : 'Puntaje no disponible',
+  };
+};
+// =================================================
+// |  Controlador para listar películas populares  |
+// =================================================
 const getMovies = async (req, res) => {
   try {
     const apiKey = process.env.API_key;
@@ -17,7 +29,10 @@ const getMovies = async (req, res) => {
         }
       });
 
-      movies.push(...response.data.results); // Se agregan las películas a la lista.
+      // Agregar películas si existen resultados
+      if (response.data.results) {
+        movies.push(...response.data.results);
+      }
       currentPage++; // Se pasa a la siguiente página.
     }
 
@@ -25,13 +40,60 @@ const getMovies = async (req, res) => {
       return res.status(400).json({ status: 'error', msg: 'No se encontraron suficientes registros.' });
     }
 
-    res.status(200).json({ status: 'ok', data: movies.slice(0, 50) }); // Devolver solo las primeras 50 pelculas.
+    // Filtrar los campos importantes para las 50 primeras películas
+    const filteredMovies = movies.slice(0, 50).map(filterDetails);
+
+    res.status(200).json({ status: 'ok', data: filteredMovies }); // Devolver solo las primeras 50 películas con los campos filtrados.
   } catch (error) {
     console.error(error);
     res.status(500).json({ status: 'error', msg: 'Error inesperado al obtener la información' });
   }
 };
 
+// ================================================
+// |  Controlador para listar película por su ID  |
+// ================================================
+const getMovieById = async (req, res) => {
+  try {
+    const apiKey = process.env.API_key;
+    const movieId = req.params.id;
+
+    // Hacer la solicitud para obtener una película por ID
+    const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}`, {
+      params: {
+        api_key: apiKey,
+        language: 'es-ES',
+      }
+    });
+
+    // Si la película no existe, devolver un error 404
+    if (!response.data || response.status === 404) {
+      return res.status(404).json({ status: 'error', msg: `No se encontró una película con el ID ${movieId}.` });
+    }
+
+    const movie = response.data;
+
+    // Usar la función para filtrar los campos seleccionados.
+    const movieDetails = filterDetails(movie);
+
+    // Se devuelve la información si la pelicula existe.
+    res.status(200).json({
+      status: "ok",
+      data: movieDetails,
+    });
+    // Manejo de errores en caso de que la película no exista o no se encuentre.
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
+      return res.status(404).json({ status: 'error', msg: `No se encontró una película con el ID ${req.params.id}.` });
+    }
+
+    console.error(error);
+    res.status(500).json({ status: 'error', msg: 'Error inesperado al obtener la información' });
+  }
+};
+
+// Se exportan las funciones.
 module.exports = {
   getMovies,
+  getMovieById
 };
