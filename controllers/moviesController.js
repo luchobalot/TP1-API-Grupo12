@@ -10,6 +10,7 @@ const filterDetails = (movie) => {
     vote_average: movie.vote_average !== undefined ? movie.vote_average : 'Puntaje no disponible',
   };
 };
+
 // =================================================
 // |  Controlador para listar películas populares  |
 // =================================================
@@ -47,7 +48,7 @@ const getMovies = async (req, res) => {
     }
 
     if (movies.length === 0) {
-      return res.status(404).json({ status: 'error', msg: 'No se encontraron películas para los filtros proporcionados.' });
+      return res.status(404).json({ status: 'error', msg: 'No se encontraron películas con los filtros seleccionados.' });
     }
 
     // Filtrar los campos importantes para las 50 primeras películas

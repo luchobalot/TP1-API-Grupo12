@@ -17,16 +17,16 @@
   ```http
   GET http://localhost:3000/api/v1/movies?page=1
 
-  ```http
+  
   GET GET http://localhost:3000/api/v1/movies?page=1&lang=en-US&year=2020&order=release_date.desc&include_adult=false
 
-  ```http
+  
   GET http://localhost:3000/api/v1/movies?lang=en-US
 
-  ```http
+  
   GET http://localhost:3000/api/v1/movies?year=2020
 
-    ```http
+  
   GET http://localhost:3000/api/v1/movies?include_adult=false
 
 - **Manejo de errores**: En caso de que haya algún error inesperado, se devuelve el mensaje de error correspondiente (500). Si no se encuentran suficientes películas o no se cumple el filtro, se devuelve un mensaje de error (404).
@@ -45,7 +45,5 @@
   ```http
   GET http://localhost:3000/api/v1/movies/123
 
-- **Manejo de errores**: En caso de no encontrar una película por su ID, se devuelve un mensaje de error (404) de que la película no fue encontrada.
-
- Si hay algun error inesperado también se devuelve el mensaje de error correspondiente (500).
+- **Manejo de errores**: En caso de no encontrar una película por su ID, se devuelve un mensaje de error (404) de que la película no fue encontrada. Si hay algun error inesperado también se devuelve el mensaje de error correspondiente (500).
 
