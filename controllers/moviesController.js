@@ -17,27 +17,37 @@ const getMovies = async (req, res) => {
   try {
     const apiKey = process.env.API_key;
     const page = req.query.page || 1;
-    const movies = [];
 
+    const language = req.query.lang || 'es-ES';  // Idioma, por defecto en español
+    const year = req.query.year;  // Filtro opcional por año de lanzamiento
+    const sortBy = req.query.order || 'popularity.desc'; // Orden opcional (por popularidad o fecha)
+    
+    const movies = [];
     let currentPage = page;
+
     while (movies.length < 50) {
-      const response = await axios.get(`https://api.themoviedb.org/3/movie/popular`, {
+      const response = await axios.get(`https://api.themoviedb.org/3/discover/movie`, {
         params: {
           api_key: apiKey,
-          language: 'es-ES',
-          page: currentPage // Se solicita la página correspondiente.
+          language: language,
+          page: currentPage,
+          primary_release_year: year, // Filtro por año de lanzamiento
+          sort_by: sortBy, // Filtro de orden
+          include_adult: false, // Excluir películas para adultos
         }
       });
 
       // Agregar películas si existen resultados
-      if (response.data.results) {
+      if (response.data.results && response.data.results.length > 0) {
         movies.push(...response.data.results);
+      } else {
+        break; // Se termina si no hay más peliculas.
       }
       currentPage++; // Se pasa a la siguiente página.
     }
 
-    if (movies.length < 50) {
-      return res.status(400).json({ status: 'error', msg: 'No se encontraron suficientes registros.' });
+    if (movies.length === 0) {
+      return res.status(404).json({ status: 'error', msg: 'No se encontraron películas para los filtros proporcionados.' });
     }
 
     // Filtrar los campos importantes para las 50 primeras películas
