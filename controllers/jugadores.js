@@ -1,15 +1,15 @@
 // controllers/jugadoresController.js
 const axios = require('axios')
-require('dotenv').config() // Asegúrate de tener esta línea para cargar las variables de entorno
+require('dotenv').config()
 
 // Definimos la URL base de la API
-const BASE_URL = process.env.URL // Reemplaza 'https://66f1d9f94153791915525fe1.mockapi.io/api/v1/jugadores/Jugadores' con la URL de tu API
+const BASE_URL = process.env.URL // Reemplaza con la URL de la API
 
 const getJugadores = (req, res) => {
   const { page, lang } = req.query
   const endpoint = 'jugadores'
 
-  // Construimos la URL con query params si están presentes
+  // Construimos la URL con query params
   const url = `${BASE_URL}/${endpoint}`
 
   // query params
@@ -22,7 +22,7 @@ const getJugadores = (req, res) => {
     headers: {
       Authorization: `Bearer ${process.env.API_KEY}` // Incluimos el API key
     },
-    params // Pasamos los parámetros de consulta
+    params // Pasamos los parametros
   })
     .then(response => {
       res.status(200).json({ status: 'ok', data: response.data })
