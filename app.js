@@ -1,18 +1,7 @@
-const express = require('express');
-const axios = require('axios');
+require('dotenv').config();
+const Servidor=require('./models/servidor');
+const server=new Servidor();
 
-const app = express();
-const port = process.env.PORT || 3000;
-
-// Middleware
-app.use(express.json()); // Para parsear cuerpos de solicitudes JSON
-
-// Rutas (ejemplo)
-app.get('/', (req, res) => {
-  res.send('Funciona correctamente el servidor!');
-});
+Servidor.listen();
 
 
-app.listen(port, () => {
-  console.log(`Servidor escuchando en el puerto ${port}`);
-});
