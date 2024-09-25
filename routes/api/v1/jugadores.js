@@ -1,13 +1,7 @@
-const express = require('express')
-const { getJugadores, getJugadorPorId } = require('../controllers/jugadoresController')
-
-const router = express.Router()
-
-//  ruta para obtener la lista de jugadores con query params opcionales (page, lang)
-router.get('/', getJugadores)
-
-// ruta para obtener un jugador específico por su ID
-router.get('/:id', getJugadorPorId)
-
-// Exportar el router para que pueda ser utilizado en el servidor
-module.exports = router
+const { Router } = require('express')
+const jugadoresController = require('../../../controllers/jugadoresController')
+const routes = Router()
+// Endpoint para obtener todos los jugadores
+routes.get('/', jugadoresController.getJugadores)
+routes.get('/:id', jugadoresController.getJugadorPorId)
+module.exports = routes
