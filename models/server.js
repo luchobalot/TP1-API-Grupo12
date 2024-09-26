@@ -18,7 +18,7 @@ class Server {
     // Balot
     this.app.use('/api/v1', require('../routes/api/v1/movies'))
     // Miqueleiz
-    this.app.use('/api/v1/jugadores', require('../routes/api/v1/jugadores'))
+    this.app.use('/api/v1', require('../routes/api/v1/jugadores'))
   }
 
   listen () {
