@@ -38,7 +38,7 @@ const getJugadores = (req = request, res = response) => {
       })
     })
 }
-const getJugadorPorI = (req = request, res = response) => {
+const getJugadorPorId = (req = request, res = response) => {
   const { id } = req.params // Obtiene el ID del parámetro de la URL
   const apiKey = process.env.API_KEY
   axios.get('https://66f1d9f94153791915525fe1.mockapi.io/api/v1/jugadores/Jugadores', {
