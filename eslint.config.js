@@ -1,5 +1,5 @@
-const globals = require('globals');
-const pluginJs = require('@eslint/js');
+const globals = require('globals')
+const pluginJs = require('@eslint/js')
 
 module.exports = [
   {
@@ -7,9 +7,9 @@ module.exports = [
     languageOptions: {
       sourceType: 'commonjs', // Configura para que ESLint trabaje con CommonJS
       globals: {
-        ...globals.node, // Agrega las variables globales de Node.js
-      },
-    },
+        ...globals.node // Agrega las variables globales de Node.js
+      }
+    }
   },
-  pluginJs.configs.recommended,
-];
+  pluginJs.configs.recommended
+]

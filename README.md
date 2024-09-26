@@ -13,6 +13,7 @@ Son opcionales y se pueden filtrar por varios a la vez en con un & entre cada fi
 Se puede filtrar por:
 -Country: GET http://localhost:3000/api/v1/usuarios?country=China
 -Gender: GET http://localhost:3000/api/v1/usuarios?gender=Female
+* Como la api genera usuarios aleatorios todo el tiempo, es probable que no encuentre los siguientes filtros
 -First Name: GET http://localhost:3000/api/v1/usuarios?first_name=Agustín
 -Last Name: GET http://localhost:3000/api/v1/usuarios?last_name=Puente
 -Email: GET http://localhost:3000/api/v1/usuarios?email=agustinpuente@gmail.com
@@ -52,7 +53,7 @@ Las respuestas son las siguientes:
   GET http://localhost:3000/api/v1/movies?page=1
 
   
-  GET GET http://localhost:3000/api/v1/movies?page=1&lang=en-US&year=2020&order=release_date.desc&include_adult=false
+  GET http://localhost:3000/api/v1/movies?page=1&lang=en-US&year=2020&order=release_date.desc&include_adult=false
 
   
   GET http://localhost:3000/api/v1/movies?lang=en-US
@@ -80,4 +81,35 @@ Las respuestas son las siguientes:
   GET http://localhost:3000/api/v1/movies/123
 
 - **Manejo de errores**: En caso de no encontrar una película por su ID, se devuelve un mensaje de error (404) de que la película no fue encontrada. Si hay algun error inesperado también se devuelve el mensaje de error correspondiente (500).
+Rutas de la API
+1. Listar jugadores
+Descripción: Retorna un listado de 50 jugadores en formato JSON.
+URL: /api/v1/jugadores
+Método HTTP: GET
+
+Ejemplo de solicitud:
+1. Sin Parámetros de Consulta
+Obtiene todos los jugadores sin filtrar.
+ GET "http://localhost:3000/api/v1/jugadores"
+2. Filtrar por Nombre
+Filtra los jugadores cuyo nombre es "Diogo".
+ GET "http://localhost:3000/api/v1/jugadores?nombre=Diogo"
+3. Filtrar por Equipo
+Filtra los jugadores que pertenecen al equipo "Liverpool".
+ GET "http://localhost:3000/api/v1/jugadores?equipo=Liverpool"
+4. Filtrar por Nacionalidad
+Filtra los jugadores de nacionalidad "Portugal".
+ GET "http://localhost:3000/api/v1/jugadores?nacionalidad=Portugal"
+
+2. Obtener Jugador por ID
+Método: GET
+Ruta: /jugadores/:id
+Ejemplos de Solicitudes para Obtener un Jugador por ID
+1. Obtener Jugador por ID
+Obtiene el jugador con un ID específico, por ejemplo, el ID 20.
+ GET "http://localhost:3000/api/v1/jugadores/20"
+
+
+
+
 

@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app.js",
-    "prepare": "husky install"
+    "prepare": "husky",
+    "lint": "npx standard",
+    "lint:fix": "npx standard --fix"
   },
   "author": "",
   "license": "ISC",
@@ -14,13 +16,18 @@
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
-    "tp1-api-node": "file:"
+    "tp1-api-node": "file:",
+    "eslint-plugin-react": "^7.36.1"  
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
     "eslint": "^9.11.1",
+    "eslint-plugin-node": "^11.1.0",
     "globals": "^15.9.0",
     "husky": "^9.1.6",
     "nodemon": "^3.1.5"
+  },
+  "eslintConfig": {
+    "extends": "standard"
   }
 }

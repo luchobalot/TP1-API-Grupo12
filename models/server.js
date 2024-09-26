@@ -2,10 +2,10 @@ const express = require('express')
 
 class Server {
   constructor () {
-    this.app = express();
-    this.port = process.env.port || 3000;
-    this.middleware();
-    this.routes();
+    this.app = express()
+    this.port = process.env.PORT || 3000
+    this.middleware()
+    this.routes()
   }
 
   middleware () {
@@ -17,6 +17,8 @@ class Server {
     this.app.use('/api/v1', require('../routes/api/v1/usuarios'))
     // Balot
     this.app.use('/api/v1', require('../routes/api/v1/movies'))
+    // Miqueleiz
+    this.app.use('/api/v1/jugadores', require('../routes/api/v1/jugadores'))
   }
 
   listen () {
