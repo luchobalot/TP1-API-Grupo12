@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "prepare": "husky install"
   },
   "author": "",
   "license": "ISC",
@@ -16,9 +17,10 @@
     "tp1-api-node": "file:"
   },
   "devDependencies": {
-    "@eslint/js": "^9.10.0",
-    "eslint": "^9.10.0",
+    "@eslint/js": "^9.11.1",
+    "eslint": "^9.11.1",
     "globals": "^15.9.0",
+    "husky": "^9.1.6",
     "nodemon": "^3.1.5"
   }
 }
