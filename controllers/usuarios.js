@@ -3,13 +3,13 @@ const axios =  require('axios');
 const getUsers = async (req, res) => {
   try {
     const apiKey = process.env.API_USERS_KEY;
-    
+    console.log(apiKey)
     //querys
     const { country, gender, first_name, last_name, email } = req.query;
     
     const response = await axios.get('https://my.api.mockaroo.com/usuarios_api', {
       headers: {
-        "X-API-Key": "6ce69550"
+        "X-API-Key": apiKey
       }
     });
 
@@ -56,7 +56,7 @@ const getUserById = async (req, res) => {
     const id = req.params.id;
     const response = await axios.get(`https://my.api.mockaroo.com/usuarios_api`, {
       headers: {
-        "X-API-Key": "6ce69550"
+        "X-API-Key": apiKey
       }
     });
 
